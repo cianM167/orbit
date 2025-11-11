@@ -1,0 +1,2 @@
+(piston_window::Context, &mut gfx_graphics::back_end::GfxGraphics<'_, gfx_device_gl::Resources, gfx_device_gl::command::CommandBuffer>, &mut gfx_device_gl::Device)
+for<'a, 'b, 'c> FnOnce(piston_window::Context, &'a mut gfx_graphics::back_end::GfxGraphics<'b, gfx_device_gl::Resources, gfx_device_gl::command::CommandBuffer>, &'c mut gfx_device_gl::Device)
