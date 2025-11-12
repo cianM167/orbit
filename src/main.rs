@@ -1,6 +1,6 @@
 extern crate piston_window;
 use piston_window::*;
-use std::collections::LinkedList;
+use std::{collections::LinkedList, io::Cursor};
 
 const G:f64 = 6.6743e-11;
 
@@ -67,6 +67,18 @@ impl Body {
 
         println!("{:?}",self.acceleration);
     }
+
+    fn update_pos (&mut self, listptr: & LinkedList<Body>) {
+        for i in listptr.iter() {
+            self.getDist(i);
+        }
+
+        self.velocity[0] += self.acceleration[0];
+        self.velocity[1] += self.acceleration[1];
+
+        self.position[0] += self.velocity[0];
+        self.position[1] += self.velocity[1];
+    }
 }
 
 fn new_body (listptr: &mut LinkedList<Body>, position: [f64; 2], velocity: [f64; 2], acceleration: [f64; 2], mass: f64) {
@@ -78,6 +90,9 @@ fn main() {
     let listptr = &mut list;
     
     new_body(listptr, [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], 400000.0);
+    new_body(listptr, [100.0, 100.0], [0.0, 0.0], [0.0, 0.0], 400000.0);
+    new_body(listptr, [500.0, 500.0], [0.0, 0.0], [0.0, 0.0], 400000.0);
+    
 
     let mut window: PistonWindow = 
         WindowSettings::new("Orbit", [640, 480])
@@ -88,7 +103,19 @@ fn main() {
             clear([1.0; 4], g);
             rectangle([1.0, 0.0, 0.0, 1.0], // red
                       [0.0, 0.0, 100.0, 100.0],
-                      c.transform, g);
+                      c.transform, g);           
+            /*
+            for i in list.iter_mut() {
+                i.update_pos(&list);
+                println!("{:?}", i.position);
+            }
+            */
+
+            
+
+            
+            
+            
         });
     }
 }
